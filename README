@@ -13,7 +13,7 @@ My present goals for this project are to provide a native Clojure interface to N
 ## Usage 
 
 (ns clojure-nltk.core
-  (:use clojure-nltk.core)
+  (:use clojure-nltk.core))
 
 (init) ; initialize nltk 
 
