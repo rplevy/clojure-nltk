@@ -1,4 +1,4 @@
-(defproject clojure-nltk "0.0.2"
+(defproject clojure-nltk "0.0.3"
   :description "Python's Natural Language Toolkit for Clojure (interop / partial port)."
   :dependencies [[org.clojure/clojure "1.1.0"]
                  [org.clojure/clojure-contrib "1.1.0"]

@@ -5,13 +5,22 @@
   (seq (.getURLs (java.lang.ClassLoader/getSystemClassLoader))))
 
 (defn get-project-path []
-  (re-sub
-   #"^file:" ""
-   (str
-    (first
-     (drop-while
-      #(not (re-find #"clojure-nltk/src/" (str %)))
-      (get-classpath))))))
+  (let [classpath (get-classpath)
+        path (first
+              (drop-while
+               #(not (re-find #"clojure-nltk/src/" (str %)))
+               classpath))
+        jarpath (and (nil? path)
+                     (first
+                      (drop-while
+                       #(not (re-find #"clojure-nltk-[0-9\.]+\.jar" (str %)))
+                       classpath)))]
+    (re-sub
+     #"^file:" ""
+     (if jarpath
+       (str jarpath "/")
+       (str path)))))
+      
 
 (defn get-nltk-path []
   (str
