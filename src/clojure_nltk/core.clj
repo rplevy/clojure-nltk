@@ -19,7 +19,15 @@
                   ~module))
               import-clauses))))
 
-(defn lazy-corpus [pyobj]
-  (clojure-python.core/pyobj-iterate pyobj))
+;; note to self: it may make sense to set this up so that for each nltk module should have a corresponding clojure-nltk namespace.
 
-;; TODO: add to this public API into NLTK functions
+(defmacro corpus-base [corpus-name method & params]
+  `(clojure-python.core/pyobj-iterate
+    (clojure-python.core/_> [~'corpus ~corpus-name ~method]
+                            ~@params)))
+(defmacro corpus-words [corpus-name & params]
+  `(clojure-nltk.core/corpus-base ~corpus-name ~'words ~@params))
+(defmacro corpus-categories [corpus-name & params]
+  `(clojure-nltk.core/corpus-base ~corpus-name ~'categories ~@params))
+(defmacro corpus-fileids [corpus-name & params]
+  `(clojure-nltk.core/corpus-base ~corpus-name ~'fileids ~@params))
