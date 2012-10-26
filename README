@@ -1,45 +1,33 @@
 # clojure-nltk
 
-by Robert P. Levy
+Most of the functionality in the Python-based Natural Language Toolkit (NLTK)
+works in Jython (it has a few dependencies only available in CPython).  However
+with some minor tweaks it is possible to use a sizable subset of NLTK in Jython,
+and by extension, in Clojure.
 
-Most of the functionality in the Python-based Natural Language Toolkit (NLTK) works in Jython (it has a few dependencies only available in CPython).  However with some minor tweaks it is possible to use a sizable subset of NLTK in Jython, and by extension, in Clojure.  
+I have included the (modified) source to NLTK in this distribution for a couple
+of reasons.  I experimented with various combinations of NLTK version and Jython
+version and found that Jython 2.5.1 and NLTK 2.0b7 work with only a few changes.
+Because changes are required it seems more straightforward to include the source
+than to require that a specific non-current version of the source be downloaded
+and patched.
 
-I have included the (modified) source to NLTK in this distribution for a couple of reasons.  I experimented with various combinations of NLTK version and Jython version and found that Jython 2.5.1 and NLTK 2.0b7 work with only a few changes.  Because changes are required it seems more straightforward to include the source than to require that a specific non-current version of the source be downloaded and patched.  
-
-NLTK might develop in a direction of being fully Jython-compatible, or perhaps Jython may port Numpy and other libraries.  Whatever the case, in the present it makes the most sense to consider ways of getting the subset of NLTK that works in Jython/Clojure to interact nicely with other available Clojure and Java libraries in order to provide the full set of features NLTK offers.  This will probably require further changes to the python source code, so it might make the most sense to view this as more of a fork from NLTK inviting possible interest in porting various parts of it (or even all of it!) to be ported to native Clojure.
-
-My present goals for this project are to provide a native Clojure interface to NLTK that abstracts away as much of the Jython guts as possible, and to look into including Incanter integration to replace matplotlib and Apache Math Commons or JScience to replace Numpy.
-
-## Usage 
+## Usage
 
 (ns clojure-nltk.core
-  (:use clojure-nltk.core))
+  (:require [clojure-nltk.core :as nltk]))
 
-(init) ; initialize nltk 
-
-Detailed usage examples will be posted at: 
-
-http://github.com/rplevy/clojure-nltk-examples
+(nltk/init) ; initialize nltk
 
 ## Installation
 
-To experiment with it:
-
-1. clone the repository
-2. wget http://github.com/rplevy/clojure-python/raw/master/etc/jython-2.5.1.jar
-   mvn install:install-file -DgroupId=org.python -DartifactId=jython -Dversion=2.5.1 -Dpackaging=jar -Dfile=./jython-2.5.1.jar
-   (Because the Maven artifact for Jython 2.5.1-- which is required by clojure-python interop layer-- has not yet been added to the central Maven repository, for now it is necessary to install it locally with mvn before running lein deps.) 
-3. lein deps
-4. lein repl
-
 To include as a dependency:
 
-Copy the config section found at http://clojars.org/clojure-nltk into your dependencies in your project's project.clj.
-
-Important: it will be necessary to include step #2 above (mvn install...) and the 2.5.1 jar itself in any installation instructions for using this as a dependency, until a recent version of Jython is made available in the central maven repository.
+Copy the config section found at http://clojars.org/clojure-nltk into your
+dependencies in your project's project.clj.
 
 ## License
 
-Copyright (C) 2010 Robert P. Levy
+Copyright (C) 2010-2012 Robert P. Levy
 
-Distributed under LGPL.
+Distributed under the Eclipse Public License, the same as Clojure.

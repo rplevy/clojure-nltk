@@ -1,6 +1,5 @@
 (ns clojure-nltk.core-test
-  (:use [clojure-nltk.core] :reload-all)
-  (:use [clojure.test]))
+  (:require [clojure-nltk.core :as base]
+            [midje.sweet :refer :all]))
 
-(deftest replace-me ;; FIXME: write
-  (is false "No tests have been written."))
+(fact (base/nltk-init) => anything)
