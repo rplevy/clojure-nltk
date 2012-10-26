@@ -5,13 +5,6 @@ works in Jython (it has a few dependencies only available in CPython).  However
 with some minor tweaks it is possible to use a sizable subset of NLTK in Jython,
 and by extension, in Clojure.
 
-I have included the (modified) source to NLTK in this distribution for a couple
-of reasons.  I experimented with various combinations of NLTK version and Jython
-version and found that Jython 2.5.1 and NLTK 2.0b7 work with only a few changes.
-Because changes are required it seems more straightforward to include the source
-than to require that a specific non-current version of the source be downloaded
-and patched.
-
 ## Usage
 
 (ns clojure-nltk.core
