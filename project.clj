@@ -1,4 +1,4 @@
-(defproject clojure-nltk "2.0.3"
+(defproject clojure-nltk "2.0.3-clj-0"
   :description "Python's NLTK for Clojure (interop / partial port)."
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}

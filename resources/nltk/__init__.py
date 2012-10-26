@@ -110,7 +110,7 @@ from probability import *
 from text import *
 from tree import *
 from util import *
-from yamltags import *
+#from yamltags import *
 
 # Modules that require Python 2.6
 if py26() or py27():

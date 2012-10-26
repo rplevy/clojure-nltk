@@ -7,7 +7,7 @@ NLTK uses simple '!' tags to mark the types of objects, but the fully-qualified
 using it.
 """
 
-import yaml
+#import yaml
 
 def custom_import(name):
     components = name.split('.')

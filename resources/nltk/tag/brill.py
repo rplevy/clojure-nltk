@@ -71,7 +71,6 @@ corpus, based on one or more "rule templates."
 
 import bisect        # for binary search through a subset of indices
 import random        # for shuffling WSJ files
-import yaml          # to save and load taggers in files
 import textwrap
 from collections import defaultdict
 
@@ -82,7 +81,7 @@ from nltk.tag.api import TaggerI
 ## The Brill Tagger
 ######################################################################
 
-class BrillTagger(TaggerI, yaml.YAMLObject):
+class BrillTagger(TaggerI):
     """
     Brill's transformational rule-based tagger.  Brill taggers use an
     initial tagger (such as ``tag.DefaultTagger``) to assign an initial
@@ -97,7 +96,6 @@ class BrillTagger(TaggerI, yaml.YAMLObject):
     ``BrillTaggerTrainer`` or ``FastBrillTaggerTrainer``.
     """
 
-    yaml_tag = '!nltk.BrillTagger'
     def __init__(self, initial_tagger, rules):
         """
         :param initial_tagger: The initial tagger
@@ -143,7 +141,7 @@ class BrillTagger(TaggerI, yaml.YAMLObject):
 ## Brill Rules
 ######################################################################
 
-class BrillRule(yaml.YAMLObject):
+class BrillRule():
     """
     An interface for tag transformations on a tagged corpus, as
     performed by brill taggers.  Each transformation finds all tokens
@@ -261,21 +259,6 @@ class ProximateTokensRule(BrillRule):
             if s>e:
                 raise ValueError('Condition %s has an invalid range' %
                                  ((s,e,v),))
-
-    # Make Brill rules look nice in YAML.
-    @classmethod
-    def to_yaml(cls, dumper, data):
-        node = dumper.represent_mapping(cls.yaml_tag, dict(
-            description=str(data),
-            conditions=list(list(x) for x in data._conditions),
-            original=data.original_tag,
-            replacement=data.replacement_tag))
-        return node
-    @classmethod
-    def from_yaml(cls, loader, node):
-        map = loader.construct_mapping(node, deep=True)
-        return cls(map['original'], map['replacement'],
-        *(tuple(x) for x in map['conditions']))
 
     @staticmethod
     def extract_property(token):
@@ -398,7 +381,6 @@ class ProximateTagsRule(ProximateTokensRule):
     Also see ``SymmetricProximateTokensTemplate`` which generates these rules.
     """
     PROPERTY_NAME = 'tag' # for printing.
-    yaml_tag = '!ProximateTagsRule'
     @staticmethod
     def extract_property(token):
         """:return: The given token's tag."""
@@ -411,7 +393,6 @@ class ProximateWordsRule(ProximateTokensRule):
     Also see ``SymmetricProximateTokensTemplate`` which generates these rules.
     """
     PROPERTY_NAME = 'text' # for printing.
-    yaml_tag = '!ProximateWordsRule'
     @staticmethod
     def extract_property(token):
         """:return: The given token's text."""
