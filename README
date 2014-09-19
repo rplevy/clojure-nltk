@@ -10,7 +10,7 @@ and by extension, in Clojure.
 (ns clojure-nltk.core
   (:require [clojure-nltk.core :as nltk]))
 
-(nltk/init) ; initialize nltk
+(nltk/nltk-init) ; initialize nltk
 
 ## Installation
 
